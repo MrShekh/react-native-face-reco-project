@@ -1,6 +1,6 @@
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 const EmployeeDetails = ({ route }) => {
   const { employee } = route.params;
@@ -35,7 +35,7 @@ const EmployeeDetails = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#faf6ff',
+    backgroundColor: '#fff',
     alignItems: 'center',
   },
   image: {

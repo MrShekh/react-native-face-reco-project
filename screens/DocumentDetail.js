@@ -1,7 +1,7 @@
 // screens/DocumentDetail.js
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const DocumentDetail = ({ route }) => {
   const { document } = route.params;
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff7ff',
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 20,

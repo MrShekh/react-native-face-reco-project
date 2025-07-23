@@ -1,27 +1,37 @@
 // navigation/AppNavigator.js
 
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 
 // Screens
-import Dashboard from '../screens/Dashboard';
+import AddLeave from '../screens/AddLeave';
 import Attendance from '../screens/Attendance';
-import Leave from '../screens/Leave';
+import Dashboard from '../screens/Dashboard';
+import DocumentDetail from '../screens/DocumentDetail';
 import Employee from '../screens/Employee';
 import EmployeeDetails from '../screens/EmployeeDetails';
-import Payroll from '../screens/Payroll';
+import ForgotPassword from '../screens/ForgotPassword';
 import HRDocuments from '../screens/HRDocuments';
-import DocumentDetail from '../screens/DocumentDetail';
+import Leave from '../screens/Leave';
+import Login from '../screens/Login';
+import Payroll from '../screens/Payroll';
+import Profile from '../screens/Profile';
+import Register from '../screens/Register';
 
 // Stack Navigator
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{ headerShown: true }} initialRouteName="Splash">
+      <Stack.Screen name="Splash" component={require('../screens/Splash').default} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Attendance" component={Attendance} />
       <Stack.Screen name="Leave" component={Leave} />
+      <Stack.Screen name="AddLeave" component={AddLeave} options={{ title: 'New Leave', headerShown: false }} />
       <Stack.Screen name="Employee" component={Employee} />
       <Stack.Screen
         name="EmployeeDetails"
@@ -41,6 +51,7 @@ const AppNavigator = () => {
         component={DocumentDetail}
         options={{ title: 'Document Detail' }}
       />
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };

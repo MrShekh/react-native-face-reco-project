@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const screenWidth = Dimensions.get('window').width;
 const cardWidth = (screenWidth - 60) / 3;
 
 const cards = [
+  { title: 'Profile', iconName: 'account-circle-outline', color: '#6A1B9A', screen: 'Profile' },
   { title: 'Leave', iconName: 'umbrella-outline', color: 'orange', screen: 'Leave' },
   { title: 'Feedback', iconName: 'message-reply-text', color: '#00796B', screen: 'Feedback' },
   { title: 'Messaging', iconName: 'chat-outline', color: '#0288D1', screen: 'Messaging' },

@@ -1,14 +1,12 @@
 // screens/Attendance.js
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  ScrollView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const attendanceData = [
   { date: '2025-03-17', checkIn: '09:00 AM', checkOut: '05:00 PM' },
@@ -43,13 +41,13 @@ const Attendance = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Top Navigation Bar */}
-      <View style={styles.topBar}>
+      {/* <View style={styles.topBar}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="arrow-left" size={24} color="#333" />
         </TouchableOpacity>
         <Text style={styles.header}>Attendance</Text>
         <View style={{ width: 24 }} />
-      </View>
+      </View> */}
 
       {/* Tabs */}
       <View style={styles.tabContainer}>
@@ -131,7 +129,7 @@ const Attendance = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAF4FF' },
+  container: { flex: 1, backgroundColor: '#fff' },
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   attendanceViewBtn: {
-    backgroundColor: '#EFEAF6',
+    backgroundColor: '#fff',
     padding: 12,
     borderRadius: 25,
     marginTop: 10,
@@ -237,7 +235,7 @@ const styles = StyleSheet.create({
   },
   tableHeader: {
     flexDirection: 'row',
-    backgroundColor: '#EFEAF6',
+    backgroundColor: '#fff',
     padding: 8,
   },
   tableHeaderText: {

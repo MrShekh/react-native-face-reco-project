@@ -1,8 +1,8 @@
 // screens/HRDocuments.js
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import React from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -55,7 +55,7 @@ const HRPoliciesTab = ({ navigation }) => (
 
 const HRDocuments = () => {
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff7ff' }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <Tab.Navigator
         screenOptions={{
           tabBarLabelStyle: { fontSize: 14 },

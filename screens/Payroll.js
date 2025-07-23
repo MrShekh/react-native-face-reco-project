@@ -1,10 +1,16 @@
 // screens/Payroll.js
-import React, { useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import React, { useState } from 'react';
+import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const pastPayrolls = [
+  { month: 'June', year: '2024', total: '₹50,000', basic: '₹40,000', hra: '₹10,000' },
+  { month: 'May', year: '2024', total: '₹49,000', basic: '₹39,000', hra: '₹10,000' },
+  { month: 'April', year: '2024', total: '₹48,500', basic: '₹38,500', hra: '₹10,000' },
+];
 
 const Payroll = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -25,15 +31,30 @@ const Payroll = () => {
   const renderSalarySlip = () => (
     <Modal visible={showSlip} transparent={true} animationType="slide">
       <View style={styles.modalOverlay}>
-        <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Salary Slip</Text>
-          <ScrollView>
-            <Text style={styles.modalText}>Month: {selectedMonth}</Text>
-            <Text style={styles.modalText}>Year: {selectedYear}</Text>
-            <Text style={styles.modalText}>Basic Pay: ₹40,000</Text>
-            <Text style={styles.modalText}>HRA: ₹10,000</Text>
-            <Text style={styles.modalText}>Total: ₹50,000</Text>
-          </ScrollView>
+        <View style={styles.billContent}>
+          <Text style={styles.billTitle}>Salary Slip</Text>
+          <View style={styles.billSection}>
+            <Text style={styles.billLabel}>Month:</Text>
+            <Text style={styles.billValue}>{selectedMonth}</Text>
+          </View>
+          <View style={styles.billSection}>
+            <Text style={styles.billLabel}>Year:</Text>
+            <Text style={styles.billValue}>{selectedYear}</Text>
+          </View>
+          <View style={styles.billDivider} />
+          <View style={styles.billSection}>
+            <Text style={styles.billLabel}>Basic Pay</Text>
+            <Text style={styles.billValue}>₹40,000</Text>
+          </View>
+          <View style={styles.billSection}>
+            <Text style={styles.billLabel}>HRA</Text>
+            <Text style={styles.billValue}>₹10,000</Text>
+          </View>
+          <View style={styles.billDivider} />
+          <View style={styles.billSection}>
+            <Text style={styles.billLabelTotal}>Total</Text>
+            <Text style={styles.billValueTotal}>₹50,000</Text>
+          </View>
           <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
             <Ionicons name="download-outline" size={20} color="#fff" />
             <Text style={styles.downloadText}>Download</Text>
@@ -44,6 +65,26 @@ const Payroll = () => {
         </View>
       </View>
     </Modal>
+  );
+
+  const renderPastPayrolls = () => (
+    <View style={styles.historySection}>
+      <Text style={styles.historyTitle}>Past Payrolls</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.historyScroll}>
+        {pastPayrolls.map((item, idx) => (
+          <View key={idx} style={styles.historyCard}>
+            <Text style={styles.historyMonth}>{item.month} {item.year}</Text>
+            <View style={styles.historyDivider} />
+            <Text style={styles.historyLabel}>Total</Text>
+            <Text style={styles.historyTotal}>{item.total}</Text>
+            <Text style={styles.historyLabel}>Basic</Text>
+            <Text style={styles.historyValue}>{item.basic}</Text>
+            <Text style={styles.historyLabel}>HRA</Text>
+            <Text style={styles.historyValue}>{item.hra}</Text>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 
   return (
@@ -60,7 +101,6 @@ const Payroll = () => {
             <Picker.Item key={index} label={month} value={month} />
           ))}
         </Picker>
-
         <Picker
           selectedValue={selectedYear}
           style={styles.picker}
@@ -73,9 +113,9 @@ const Payroll = () => {
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setShowSlip(true)}>
         <Ionicons name="eye-outline" size={20} color="#7a4fc3" />
-        <Text style={styles.buttonText}>View Salary History</Text>
+        <Text style={styles.buttonText}>View Salary Slip</Text>
       </TouchableOpacity>
-
+      {renderPastPayrolls()}
       {renderSalarySlip()}
     </View>
   );
@@ -85,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff7ff',
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 20,
@@ -138,41 +178,108 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  modalContent: {
+  billContent: {
     backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 10,
-    width: '80%',
-    maxHeight: '80%',
+    padding: 24,
+    borderRadius: 16,
+    width: '90%',
+    maxWidth: 400,
+    alignItems: 'center',
+    elevation: 6,
   },
-  modalTitle: {
+  billTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#6A1B9A',
+    marginBottom: 12,
+  },
+  billSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginVertical: 4,
+  },
+  billLabel: {
+    fontSize: 16,
+    color: '#555',
+  },
+  billValue: {
+    fontSize: 16,
+    color: '#222',
+    fontWeight: '600',
+  },
+  billDivider: {
+    height: 1,
+    backgroundColor: '#eee',
+    width: '100%',
+    marginVertical: 8,
+  },
+  billLabelTotal: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#333',
   },
-  modalText: {
-    fontSize: 16,
-    marginBottom: 5,
+  billValueTotal: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#6A1B9A',
   },
-  downloadButton: {
+  historySection: {
+    marginTop: 32,
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#6A1B9A',
+    paddingLeft: 4,
+  },
+  historyScroll: {
     flexDirection: 'row',
-    backgroundColor: '#7a4fc3',
-    borderRadius: 8,
-    padding: 10,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center'
+    gap: 12,
+    paddingBottom: 8,
   },
-  downloadText: {
-    color: '#fff',
-    marginLeft: 6,
-    fontWeight: 'bold'
+  historyCard: {
+    backgroundColor: '#fff',
+    borderRadius: 14,
+    padding: 16,
+    marginRight: 12,
+    width: 160,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 1, height: 1 },
+    shadowRadius: 3,
+    alignItems: 'center',
   },
-  closeText: {
+  historyMonth: {
+    fontSize: 16,
+    fontWeight: 'bold',
     color: '#7a4fc3',
-    marginTop: 10,
-    textAlign: 'center'
-  }
+    marginBottom: 4,
+  },
+  historyDivider: {
+    height: 1,
+    backgroundColor: '#eee',
+    width: '100%',
+    marginVertical: 6,
+  },
+  historyLabel: {
+    fontSize: 13,
+    color: '#888',
+    marginTop: 2,
+  },
+  historyTotal: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 2,
+  },
+  historyValue: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 2,
+  },
 });
 
 export default Payroll;
