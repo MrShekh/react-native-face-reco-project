@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.shekhasif.faceattendancesystem"
     },
     "web": {
       "bundler": "metro",
@@ -35,6 +36,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "114c49cf-ef50-4061-b608-2563f9bdea1b"
+      }
     }
   }
 }
